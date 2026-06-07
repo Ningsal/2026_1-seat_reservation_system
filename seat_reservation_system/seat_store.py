@@ -7,7 +7,7 @@ class SeatStore:
         self._history = []
 
     def _add_log(self, action, seat_id, details=""):
-        """내부 메서드: 현재 시간과 함께 행동 로그를 기록합니다."""
+        """내부 메서드: 현재 시간과 함께 행동 로그를 기록"""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_entry = f"[{timestamp}] [Seat {seat_id}] {action} - {details}"
         self._history.append(log_entry)
@@ -29,7 +29,7 @@ class SeatStore:
         try:
             current = self._get(seat_id)
         except ValueError as exc:
-            # 존재하지 않는 좌석 번호일 때도 로그를 남기고 싶다면 처리
+            # 존재하지 않는 좌석 번호일 때도 로그를 남기는 코드 
             self._add_log("CANCEL_FAIL", seat_id, "Seat does not exist.")
             raise exc
 
@@ -46,7 +46,7 @@ class SeatStore:
         return seat_id, None
 
     def status(self, seat_id):
-        # 상태 조회 시에도 로그를 남깁니다.
+        # 상태를 조회 할때에도 로그를 남김.
         seat_id, name = seat_id, self._get(seat_id)
         status_str = f"Reserved by {name}" if name else "Available"
         self._add_log("STATUS_CHECK", seat_id, f"Status: {status_str}")
@@ -58,7 +58,7 @@ class SeatStore:
         return {"total": total, "reserved": reserved, "available": total - reserved}
 
     def get_history(self):
-        """저장된 전체 히스토리 로그를 반환합니다."""
+        """저장된 전체 히스토리 로그를 반환"""
         return self._history
 
     def _get(self, seat_id):
