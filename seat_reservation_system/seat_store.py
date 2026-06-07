@@ -7,7 +7,7 @@ class SeatStore:
         self.timeout = timedelta(seconds=timeout_seconds)
 
     def _cleanup_expired_reservations(self):
-        """명령어가 실행될 때마다 호출되어 만료된 예약을 자동으로 취소합니다."""
+        """명령어가 실행될 때마다 호출되어 만료된 예약을 자동으로 취소."""
         now = datetime.now()
         for seat_id, info in list(self._seats.items()):
             if info is not None:
@@ -18,7 +18,7 @@ class SeatStore:
 
     def list_seats(self):
         self._cleanup_expired_reservations()
-        # CLI단에서 깨지지 않도록 (seat_id, name) 튜플 형태로 변환해서 반환
+        # CLI에서 깨지지 않도록 (seat_id, name) 튜플 형태로 변환해서 반환
         return [(seat_id, info["name"] if info else None) for seat_id, info in self._seats.items()]
 
     def reserve(self, seat_id, name):
