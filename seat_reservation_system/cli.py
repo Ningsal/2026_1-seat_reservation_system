@@ -7,6 +7,7 @@ reserve <seat_id> <name>  - Reserve a seat
 cancel <seat_id> [name]   - Cancel a reservation
 status <seat_id>          - Show seat status
 stats                     - Show summary stats
+history                   - Show all system logs  <- 추가됨!
 help                      - Show this help
 exit                      - Exit the program"""
 
@@ -55,6 +56,15 @@ def run_cli():
                         **stats
                     )
                 )
+            elif command == "history":  # 히스토리 출력 명령어 분기 추가
+                logs = store.get_history()
+                if not logs:
+                    print("No logs recorded yet.")
+                else:
+                    print("--- System History Logs ---")
+                    for log in logs:
+                        print(log)
+                    print("---------------------------")
             else:
                 print("Unknown command. Type 'help' for commands.")
         except ValueError as exc:
